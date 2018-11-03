@@ -1,0 +1,3 @@
+Fix how all buttons on the footer are now form submit buttons. 			[DONE]
+Make the 'onclick' functions connect via jquary instead of plain html.		[DONE]
+Update SQL with javascript code.						[SKIP]
