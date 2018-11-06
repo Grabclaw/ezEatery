@@ -48,6 +48,13 @@ body {
   border: 1px solid lightgrey;
   border-radius: 3px;
 }
+.icon-container 
+{
+  margin-bottom: 20px;
+  padding: 7px 0;
+  font-size: 24px;
+}
+
 
 input[type=text] 
 {
@@ -58,17 +65,11 @@ input[type=text]
   border-radius: 3px;
 }
 
+
 label 
 {
   margin-bottom: 10px;
   display: block;
-}
-
-.icon-container 
-{
-  margin-bottom: 20px;
-  padding: 7px 0;
-  font-size: 24px;
 }
 
 
@@ -95,6 +96,7 @@ span.price
   float: right;
   color: grey;
 }
+
 
 @media (max-width: 800px) 
 {

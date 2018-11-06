@@ -4,9 +4,9 @@
 	$pirceTotal = 0;
 	
 	/* 
-		The number of vars in POST is cut in half as it is being used like a touple.
-		2 different vars are holding data for one object. The first being that objects quantity.
-		The second being that objects location in the data table.
+		The number of vars in POST is cut in half as it is being used like a 2d array.
+		The first column in the array holds a food items quantity.
+		The second column in the array holds that items id for the sql data table.
 	*/
 	for ($x = 0; $x < (count($_POST) / 2); $x++)
 	{
@@ -39,9 +39,7 @@
 		<div class="row">
 			<div class="col-75">
 				<div class="container">
-				
 					<form action="Status.html" method="post">
-					
 						<div class="row">
 							<div class="col-50">
 								<h3>Billing Address</h3>

@@ -3,10 +3,12 @@ p
 	font-size: 18px;
 }
 
+
 td
 {
 	line-height: 50px;
 }
+
 
 ul 
 {
@@ -15,16 +17,19 @@ ul
 	padding: 0;
 }
 
+
 .container-fluid.custom-container
 {
 	padding: 50px 20px 300px 20px;
 }
+
 
 .list-item-image
 {
 	height: 120px;
 	width: 160px;
 }
+
 
 .card 
 {
@@ -36,6 +41,7 @@ ul
 	box-shadow: 0 8px 24px 0 rgba(0,0,0,0.2);
 }
 
+
 .btn.btn-text 
 {
 	border: 2px solid blue;
@@ -46,6 +52,7 @@ ul
 	cursor: pointer;
 }
 .btn.btn-text:hover {background: #eee;}
+
 
 .footer 
 {

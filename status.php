@@ -7,6 +7,7 @@
 				$password = "7michael99";
 				$dbname = "store";
 				
+				
 				$id = intval($_GET['id']);
 				$fn = strval($_GET['fn']);
 				$pr = floatval($_GET['pr']);
@@ -24,6 +25,7 @@
 				} 
 				echo "Connected successfully<br>";
 
+				
 				function updateTableData($conn, $table, $what, $toValue, $where)
 				{
 					echo $toValue;
@@ -89,6 +91,7 @@
 						echo "<h4 class='card-title'>".$row["foodname"]."</h4>";
 						echo "<p class='card-text'>";
 						echo "<table class='table'>";
+						
 						echo "<tr>";
 						echo "<td>id</td>";
 						echo "<td>foodname</td>";
@@ -97,7 +100,16 @@
 						echo "<td>photoname</td>";
 						echo "<td>description</td>";
 						echo "</tr>";
-						echo "<tr><td>".$row["id"]."</td><td>".$row["foodname"]."</td><td>".$row["price"]."</td><td>".$row["quantity"]."</td><td>".$row["photoname"]."</td><td>".$row["description"]."</td></tr>";
+						
+						echo "<tr>";
+						echo "<td>".$row["id"]."</td>";
+						echo "<td>".$row["foodname"]."</td>";
+						echo "<td>".$row["price"]."</td>";
+						echo "<td>".$row["quantity"]."</td>";
+						echo "<td>".$row["photoname"]."</td>";
+						echo "<td>".$row["description"]."</td>";
+						echo "</tr>";
+						
 						echo "<form>";
 						echo "<tr>";
 						echo "<td><input id='".$row["id"]."' type='text'></td>";
@@ -108,6 +120,7 @@
 						echo "<td><input id='".$row["id"]."_de' type='text'></td>";
 						echo "</tr>";
 						echo "</form>";
+						
 						echo "</table>";
 						echo "</p>";
 						echo "<button onclick=\"pressedUpdateButton('".$row["id"]."')\" class='btn btn-info btn-lg' style='color:white'>Update</button>";
