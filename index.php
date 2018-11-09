@@ -30,6 +30,9 @@
 					<small>Operating Hours: Mon - Sat | 10:00am - 9:00pm</small><br>
 					<a href="statusDisplay.php">Status</a>
 				</p>
+				<p>
+					<small>(This is a demo website, not all features work yet.)</small>
+				</p>
 			</div>
 		</div>
 		

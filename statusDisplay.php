@@ -1,22 +1,20 @@
 <?php
 	session_start();
-	print_r($_SESSION);
-	
 	
 	$servername = "localhost";
 	$username = "Michael";
 	$password = "7michael99";
 	$dbname = "store";
 
-	
+
 	// Create connection
 	$conn = new mysqli($servername, $username, $password, $dbname);
 	// Check connection
 	if ($conn->connect_error) 
 	{
 		die("Connection failed: " . $conn->connect_error);
-	} 
-	echo "Connected successfully<br>";
+	}
+	
 	
 	
 	function updateTableData($conn, $table, $what, $toValue, $where)
@@ -25,8 +23,7 @@
 
 		if ($conn->query($sql) === TRUE) 
 		{
-			echo "Record updated successfully";
-		} 
+		}
 		else
 		{
 			echo "Error updating record: " . $conn->error;
@@ -34,7 +31,7 @@
 	}
 	
 	
-	// Update all itesm that changed.
+	// Update all items that changed.
 	for ($x = 0; $x < count($_SESSION); $x++)
 	{
 		$sql = "SELECT * FROM items WHERE id=".$_SESSION["item_"."$x"][1];
@@ -44,7 +41,16 @@
 			$row = $result->fetch_assoc();
 			if($row["quantity"] < $_SESSION["item_"."$x"][0])
 			{
-				echo "order too larger<br>";
+				echo "<script>alert('Sorry, an item on your order has sold out!')</script>";
+				echo "<a href='index.php'>Home</a>";
+				
+				// remove all session variables
+				session_unset(); 
+
+				// destroy the session 
+				session_destroy(); 
+				
+				return;
 			}
 			else
 			{
@@ -61,6 +67,8 @@
 	session_destroy(); 
 ?>
 
+
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -74,7 +82,7 @@
 		
 		
 		<!-- My External Files -->
-		<script src="status.js"></script>
+		<script src="statusDisplay.js"></script>
 		
 		<title>EZ Eatery</title>
 	</head>
@@ -131,12 +139,10 @@
 							
 							echo "<form>";
 							echo "<tr>";
-							echo "<td><input id='".$row["id"]."' type='text'></td>";
-							echo "<td><input id='".$row["id"]."_fn' type='text'></td>";
-							echo "<td><input id='".$row["id"]."_pr' type='text'></td>";
+							echo"<td></td>";
+							echo"<td></td>";
+							echo"<td></td>";
 							echo "<td><input id='".$row["id"]."_qa' type='text'></td>";
-							echo "<td><input id='".$row["id"]."_ph' type='text'></td>";
-							echo "<td><input id='".$row["id"]."_de' type='text'></td>";
 							echo "</tr>";
 							echo "</form>";
 							

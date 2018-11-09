@@ -1,7 +1,39 @@
 <?php
+	$servername = "localhost";
+	$username = "Michael";
+	$password = "7michael99";
+	$dbname = "store";
+
+	
+	// Create connection
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	// Check connection
+	if ($conn->connect_error) 
+	{
+		die("Connection failed: " . $conn->connect_error);
+	}
+	
+	
+	
 	session_start();
 	$totalItems = 0;
 	$pirceTotal = 0;
+	
+	
+	// Validate data before it is used.
+	function testForInt($data)
+	{
+		if (!filter_var($data, FILTER_VALIDATE_INT) === false)
+		{
+			return intval($data);
+		} 
+		else 
+		{
+			echo("Integer is not valid<br>");
+			return false;
+		}
+	}
+	
 	
 	/* 
 		The number of vars in POST is cut in half as it is being used like a 2d array.
@@ -10,8 +42,43 @@
 	*/
 	for ($x = 0; $x < (count($_POST) / 2); $x++)
 	{
-		$_SESSION["item_"."$x"] = array($_POST["item_quantity_"."$x"], $_POST["item_tableLocation_"."$x"]);
-		$totalItems += (int)$_POST["item_quantity_"."$x"];
+		$quantity = (int)testForInt($_POST["item_quantity_"."$x"]);
+		
+		if($quantity != false)
+		{
+			$_SESSION["item_"."$x"] = array($quantity, $_POST["item_tableLocation_"."$x"]);
+			$totalItems += $quantity;
+		}
+		else
+		{
+			echo "<a href='index.php'>Home</a>";
+			return;
+		}
+	}
+	
+	
+	// Check to make sure items are still in stock.
+	for ($x = 0; $x < count($_SESSION); $x++)
+	{
+		$sql = "SELECT * FROM items WHERE id=".$_SESSION["item_"."$x"][1];
+		$result = $conn->query($sql);
+		if($result->num_rows > 0)
+		{
+			$row = $result->fetch_assoc();
+			if($row["quantity"] < $_SESSION["item_"."$x"][0])
+			{
+				echo "<script>alert('Sorry, an item on your order has sold out!')</script>";
+				echo "<a href='index.php'>Home</a>";
+				
+				// remove all session variables
+				session_unset(); 
+
+				// destroy the session 
+				session_destroy(); 
+				
+				return;
+			}
+		}
 	}
 ?>
 
@@ -121,20 +188,6 @@
 						</thead>
 						<tbody>
 						<?php
-							$servername = "localhost";
-							$username = "Michael";
-							$password = "7michael99";
-							$dbname = "store";
-
-							// Create connection
-							$conn = new mysqli($servername, $username, $password, $dbname);
-							// Check connection
-							if ($conn->connect_error) 
-							{
-								die("Connection failed: " . $conn->connect_error);
-							} 
-							
-							
 							for ($x = 0; $x < (count($_POST) / 2); $x++)
 							{
 								$sql = "SELECT * FROM items WHERE id=".$_POST["item_tableLocation_"."$x"];
