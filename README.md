@@ -1,4 +1,3 @@
 # ezEatery
-Demo Webiste | Update regularly, not all features work yet.
-
+Demo Webiste | Update regularly
 www.ezeatery.biz
