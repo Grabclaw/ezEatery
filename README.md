@@ -1,4 +1,4 @@
 # ezEatery
 Demo Webiste | Update regularly
 
-www.ezeatery.biz
+http://www.ezeatery.biz/ezEatery/index.php
