@@ -6,14 +6,30 @@
 				$username = "Michael";
 				$password = "7michael99";
 				$dbname = "store";
+
+
+
+				/* 	
+					Validate data before it is used.
+					qa stands for 'quantity'.
+				*/
+				$demi_qa = 0;
 				
+				if (!filter_var(intval($_POST['qa']), FILTER_VALIDATE_INT) === false) 
+				{
+					$demi_qa = intval($_POST['qa']);
+				} 
+				else 
+				{
+					echo "Integer is not valid!";
+					
+					// Set quantity value to -1 so update function doesnt trigger.
+					$demi_qa = -1;
+				}
 				
-				$id = intval($_GET['id']);
-				$fn = strval($_GET['fn']);
-				$pr = floatval($_GET['pr']);
-				$qa = intval($_GET['qa']);
-				$ph = strval($_GET['ph']);
-				$de = strval($_GET['de']);
+				$id = $_POST['id'];
+				$qa = $demi_qa;
+				
 				
 				
 				// Create connection
@@ -23,17 +39,14 @@
 				{
 					die("Connection failed: " . $conn->connect_error);
 				} 
-				echo "Connected successfully<br>";
 
-				
+
 				function updateTableData($conn, $table, $what, $toValue, $where)
 				{
-					echo $toValue;
 					$sql = "UPDATE $table SET $what='$toValue' WHERE id=$where";
 
 					if ($conn->query($sql) === TRUE) 
 					{
-						echo "Record updated successfully";
 					} 
 					else
 					{
@@ -42,29 +55,9 @@
 				}
 				
 				
-				if($id > 0)
-				{
-					updateTableData($conn, "items", "id", $id, $id);
-				}
-				if($fn != "")
-				{
-					updateTableData($conn, "items", "foodname", $fn, $id);
-				}
-				if($pr > 0)
-				{
-					updateTableData($conn, "items", "price", $pr, $id);
-				}
 				if($qa > 0)
 				{
 					updateTableData($conn, "items", "quantity", $qa, $id);
-				}
-				if($ph != "")
-				{
-					updateTableData($conn, "items", "photoname", $ph, $id);
-				}
-				if($de != "")
-				{
-					updateTableData($conn, "items", "description", $de, $id);
 				}
 				
 				
@@ -112,12 +105,10 @@
 						
 						echo "<form>";
 						echo "<tr>";
-						echo "<td><input id='".$row["id"]."' type='text'></td>";
-						echo "<td><input id='".$row["id"]."_fn' type='text'></td>";
-						echo "<td><input id='".$row["id"]."_pr' type='text'></td>";
+						echo "<td></td>";
+						echo "<td></td>";
+						echo "<td></td>";
 						echo "<td><input id='".$row["id"]."_qa' type='text'></td>";
-						echo "<td><input id='".$row["id"]."_ph' type='text'></td>";
-						echo "<td><input id='".$row["id"]."_de' type='text'></td>";
 						echo "</tr>";
 						echo "</form>";
 						
