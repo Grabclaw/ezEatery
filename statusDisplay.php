@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	
+
 	$servername = "localhost";
 	$username = "Michael";
 	$password = "7michael99";

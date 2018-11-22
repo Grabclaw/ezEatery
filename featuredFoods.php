@@ -84,6 +84,8 @@
 		
 		
 		<p></p>
+		<!-- Featured Foods Title Area -->
+		<h1>Featured Foods</h1>
 		
 		
 		<!-- Food Item Cards -->
@@ -105,37 +107,25 @@
 							die("Connection failed: " . $conn->connect_error);
 						} 
 					
-					
-						$sql = "SELECT * FROM items";
+						
+						$sql = "SELECT * FROM items WHERE id=1";
 						$result = $conn->query($sql);
-				
-						if($conn === false)
+						if($result->num_rows > 0)
 						{
-							echo "connection failed";
-							return false;
+							$row = $result->fetch_assoc();
+							echo "<div id='".$row["id"]."' class='card bg-light text-dark' style='width:400px'>";
+							echo "<img class='card-img-top' src='Images\FoodItems\\".$row["photoname"].".jpg' alt='".$row["foodname"]."'>";
+							echo "<div class='card-body'>";
+							echo "<h4 class='card-title'>".$row["foodname"]."</h4>";
+							echo "<p class='card-text'>".$row["description"]."</p>";
+							echo "<button onclick=\"pressedFoodButton('".$row["id"]."', '".$row["foodname"]."', ".$row["price"].", '".$row["photoname"]."')\" class='btn btn-info btn-lg' style='color:white'>$".$row["price"]."</button>";
+							echo "</div>";
+							echo "</div>";
 						}
-						else if($result === false)
+						else
 						{
-							echo "getting 'result' failed";
+							$conn->close();
 							return false;
-						}
-						else if($result->num_rows > 0) 
-						{
-							while($row = $result->fetch_assoc()) 
-							{			
-								echo "<div id='".$row["id"]."' class='card bg-light text-dark' style='width:400px'>";
-								echo "<img class='card-img-top' src='Images\FoodItems\\".$row["photoname"].".jpg' alt='".$row["foodname"]."'>";
-								echo "<div class='card-body'>";
-								echo "<h4 class='card-title'>".$row["foodname"]."</h4>";
-								echo "<p class='card-text'>".$row["description"]."</p>";
-								echo "<button onclick=\"pressedFoodButton('".$row["id"]."', '".$row["foodname"]."', ".$row["price"].", '".$row["photoname"]."')\" class='btn btn-info btn-lg' style='color:white'>$".$row["price"]."</button>";
-								echo "</div>";
-								echo "</div>";
-							}
-						} 
-						else 
-						{
-							echo "0 results";
 						}
 					?>
 				</div>
